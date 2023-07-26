@@ -61,3 +61,16 @@ ChatGPT
 # Updated JavaScript (script.js):
 
 ### With this update, we ensure that the moveSnake() function is called only once when the game starts. This avoids adding multiple event listeners and resolves the freezing issue. The game should now start correctly when you press any key, and you can control the snake's movement using the arrow keys. The green food block should move at a controlled speed, and the game should end if the snake collides with the edge of the game container or itself.
+
+
+## Now the game is over once the green square reaches the red one. I want the "snake" to grow in lenght with each red square "eaten" and more food to appeare.
+
+ChatGPT
+### Apologies for the confusion. To make the snake grow in length with each red square "eaten" and have more food appear, we need to make some additional changes to the code. Let's update the code to implement these features:
+
+# Updated JavaScript (script.js):
+
+### With these updates, the snake should now grow in length with each red square "eaten," and more food will appear on the game board. Additionally, the game should end if the snake collides with the edge of the game container or itself.
+
+### Now the game should be more dynamic, and the snake should continue to grow as you "eat" the red squares. Enjoy playing the game!
+

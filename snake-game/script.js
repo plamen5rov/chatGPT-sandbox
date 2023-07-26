@@ -15,19 +15,12 @@ let yVelocity = 0;
 let gameRunning = false;
 let gameSpeed = 150; // Adjust this value to control the game speed (lower value means faster)
 
-// Function to start the game when a key is pressed
-function startGame() {
-    if (!gameRunning) {
-        gameRunning = true;
-        moveSnake(); // Add event listener for keydown once
-        updateGame();
-    }
-}
-
 function updateGame() {
     if (!gameRunning) {
-        // Stop the game if it's not running
-        return;
+        // Start the game only if it's not already running
+        gameRunning = true;
+        moveSnake(); // Add event listener for keydown once
+        spawnFood(); // Spawn initial food
     }
 
     snakeX += xVelocity * gridSize;
@@ -42,8 +35,7 @@ function updateGame() {
     // Check for collisions with the food
     if (snakeX === foodX && snakeY === foodY) {
         snakeLength++;
-        foodX = Math.floor(Math.random() * tileCount) * gridSize;
-        foodY = Math.floor(Math.random() * tileCount) * gridSize;
+        spawnFood(); // Spawn new food
     }
 
     // Update the snake trail
@@ -63,8 +55,6 @@ function updateGame() {
     // Update the game display
     snakeElement.style.left = snakeX + "px";
     snakeElement.style.top = snakeY + "px";
-    foodElement.style.left = foodX + "px";
-    foodElement.style.top = foodY + "px";
 
     // Repeat the game update loop with a delay
     setTimeout(updateGame, gameSpeed);
@@ -95,6 +85,24 @@ function moveSnake() {
     });
 }
 
+function spawnFood() {
+    // Generate random positions for the food within the game container
+    foodX = Math.floor(Math.random() * tileCount) * gridSize;
+    foodY = Math.floor(Math.random() * tileCount) * gridSize;
+
+    // Ensure the food does not spawn on the snake
+    for (let i = 0; i < snakeTrail.length; i++) {
+        if (snakeTrail[i].x === foodX && snakeTrail[i].y === foodY) {
+            spawnFood(); // Retry if the food spawns on the snake
+            return;
+        }
+    }
+
+    // Update the food display
+    foodElement.style.left = foodX + "px";
+    foodElement.style.top = foodY + "px";
+}
+
 function gameOver() {
     alert("Game Over!");
     // Perform any additional actions to reset the game state
@@ -104,14 +112,9 @@ function gameOver() {
     snakeTrail = [];
     xVelocity = 1;
     yVelocity = 0;
-    foodX = Math.floor(Math.random() * tileCount) * gridSize;
-    foodY = Math.floor(Math.random() * tileCount) * gridSize;
+    spawnFood(); // Respawn initial food
     gameRunning = false;
 }
-
-// Initial setup
-foodX = Math.floor(Math.random() * tileCount) * gridSize;
-foodY = Math.floor(Math.random() * tileCount) * gridSize;
 
 // Attach the 'startGame' function to the 'keydown' event
 document.addEventListener("keydown", startGame);
