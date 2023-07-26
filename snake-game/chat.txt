@@ -1,3 +1,0 @@
-You are an experienced game developer.
-Write a browser game like the old Sneak Bite game. Use only Javascript, HTML and CSS.
-Provide separate files and instructions.
