@@ -15,11 +15,19 @@ let yVelocity = 0;
 let gameRunning = false;
 let gameSpeed = 150; // Adjust this value to control the game speed (lower value means faster)
 
+// Function to start the game when a key is pressed
+function startGame() {
+    if (!gameRunning) {
+        gameRunning = true;
+        moveSnake(); // Add event listener for keydown once
+        updateGame();
+    }
+}
+
 function updateGame() {
     if (!gameRunning) {
-        // Start the game only if it's not already running
-        gameRunning = true;
-        moveSnake();
+        // Stop the game if it's not running
+        return;
     }
 
     snakeX += xVelocity * gridSize;
@@ -104,3 +112,6 @@ function gameOver() {
 // Initial setup
 foodX = Math.floor(Math.random() * tileCount) * gridSize;
 foodY = Math.floor(Math.random() * tileCount) * gridSize;
+
+// Attach the 'startGame' function to the 'keydown' event
+document.addEventListener("keydown", startGame);

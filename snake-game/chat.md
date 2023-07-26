@@ -50,3 +50,14 @@ ChatGPT
 ### With this update, the setTimeout() function is used to introduce a delay (gameSpeed) between each frame update, which controls the game's speed. You can adjust the gameSpeed variable to make the game faster or slower. A smaller value will make the game faster, and a larger value will slow it down.
 
 ### Now the game should work correctly, and you can control the snake's movement using the arrow keys. The green food block should move at a controlled speed, and the game should end if the snake collides with the edge of the game container or itself.
+
+## Now the gamee freezes again and does not respond to any key strokes.
+
+ChatGPT
+### Apologies for the ongoing issues. The freezing issue is likely caused by the moveSnake() function being called within the updateGame() function. It results in multiple event listeners being added, which leads to the game not responding to key presses after the first time.
+
+### Let's update the code to fix this problem:
+
+# Updated JavaScript (script.js):
+
+### With this update, we ensure that the moveSnake() function is called only once when the game starts. This avoids adding multiple event listeners and resolves the freezing issue. The game should now start correctly when you press any key, and you can control the snake's movement using the arrow keys. The green food block should move at a controlled speed, and the game should end if the snake collides with the edge of the game container or itself.
