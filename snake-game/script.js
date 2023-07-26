@@ -12,7 +12,7 @@ let gridSize = 20;
 let tileCount = 20;
 let xVelocity = 1;
 let yVelocity = 0;
-let gameRunning = false; // Variable to track if the game is running
+let gameRunning = false;
 
 function updateGame() {
     if (!gameRunning) {
@@ -73,29 +73,19 @@ function gameOver() {
     yVelocity = 0;
     foodX = Math.floor(Math.random() * tileCount) * gridSize;
     foodY = Math.floor(Math.random() * tileCount) * gridSize;
-    gameRunning = false; // Reset the gameRunning variable
+    gameRunning = false;
 }
 
-document.addEventListener("keydown", function(event) {
-    switch (event.key) {
-        case "ArrowLeft":
-            xVelocity = -1;
-            yVelocity = 0;
-            break;
-        case "ArrowRight":
-            xVelocity = 1;
-            yVelocity = 0;
-            break;
-        case "ArrowUp":
-            xVelocity = 0;
-            yVelocity = -1;
-            break;
-        case "ArrowDown":
-            xVelocity = 0;
-            yVelocity = 1;
-            break;
+// Function to start the game when a key is pressed
+function startGame() {
+    if (!gameRunning) {
+        gameRunning = true;
+        updateGame();
     }
-});
+}
+
+// Attach the 'startGame' function to the 'keydown' event
+document.addEventListener("keydown", startGame);
 
 // Initial setup
 foodX = Math.floor(Math.random() * tileCount) * gridSize;
