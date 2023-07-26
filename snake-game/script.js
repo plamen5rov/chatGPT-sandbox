@@ -21,6 +21,8 @@ function updateGame() {
         gameRunning = true;
         moveSnake(); // Add event listener for keydown once
         spawnFood(); // Spawn initial food
+        requestAnimationFrame(gameLoop);
+        return;
     }
 
     snakeX += xVelocity * gridSize;
@@ -56,8 +58,8 @@ function updateGame() {
     snakeElement.style.left = snakeX + "px";
     snakeElement.style.top = snakeY + "px";
 
-    // Repeat the game update loop with a delay
-    setTimeout(updateGame, gameSpeed);
+    // Repeat the game update loop
+    requestAnimationFrame(updateGame);
 }
 
 function moveSnake() {
@@ -65,20 +67,28 @@ function moveSnake() {
         if (gameRunning) {
             switch (event.key) {
                 case "ArrowLeft":
-                    xVelocity = -1;
-                    yVelocity = 0;
+                    if (xVelocity !== 1) {
+                        xVelocity = -1;
+                        yVelocity = 0;
+                    }
                     break;
                 case "ArrowRight":
-                    xVelocity = 1;
-                    yVelocity = 0;
+                    if (xVelocity !== -1) {
+                        xVelocity = 1;
+                        yVelocity = 0;
+                    }
                     break;
                 case "ArrowUp":
-                    xVelocity = 0;
-                    yVelocity = -1;
+                    if (yVelocity !== 1) {
+                        xVelocity = 0;
+                        yVelocity = -1;
+                    }
                     break;
                 case "ArrowDown":
-                    xVelocity = 0;
-                    yVelocity = 1;
+                    if (yVelocity !== -1) {
+                        xVelocity = 0;
+                        yVelocity = 1;
+                    }
                     break;
             }
         }
@@ -101,6 +111,11 @@ function spawnFood() {
     // Update the food display
     foodElement.style.left = foodX + "px";
     foodElement.style.top = foodY + "px";
+}
+
+function gameLoop() {
+    updateGame();
+    requestAnimationFrame(gameLoop);
 }
 
 function gameOver() {
