@@ -12,8 +12,16 @@ let gridSize = 20;
 let tileCount = 20;
 let xVelocity = 1;
 let yVelocity = 0;
+let gameRunning = false; // Variable to track if the game is running
 
 function updateGame() {
+    if (!gameRunning) {
+        // Start the game only if it's not already running
+        gameRunning = true;
+        requestAnimationFrame(updateGame);
+        return;
+    }
+
     snakeX += xVelocity * gridSize;
     snakeY += yVelocity * gridSize;
 
@@ -65,7 +73,7 @@ function gameOver() {
     yVelocity = 0;
     foodX = Math.floor(Math.random() * tileCount) * gridSize;
     foodY = Math.floor(Math.random() * tileCount) * gridSize;
-    updateGame();
+    gameRunning = false; // Reset the gameRunning variable
 }
 
 document.addEventListener("keydown", function(event) {
@@ -92,4 +100,3 @@ document.addEventListener("keydown", function(event) {
 // Initial setup
 foodX = Math.floor(Math.random() * tileCount) * gridSize;
 foodY = Math.floor(Math.random() * tileCount) * gridSize;
-updateGame();
