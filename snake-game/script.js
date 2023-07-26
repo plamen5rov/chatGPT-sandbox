@@ -14,6 +14,7 @@ let xVelocity = 1;
 let yVelocity = 0;
 let gameRunning = false;
 let gameSpeed = 150; // Adjust this value to control the game speed (lower value means faster)
+let keyLock = false; // To prevent multiple key presses at once
 
 function updateGame() {
     if (!gameRunning) {
@@ -58,13 +59,13 @@ function updateGame() {
     snakeElement.style.left = snakeX + "px";
     snakeElement.style.top = snakeY + "px";
 
-    // Repeat the game update loop
-    requestAnimationFrame(updateGame);
+    keyLock = false; // Unlock keys
 }
 
 function moveSnake() {
     document.addEventListener("keydown", function(event) {
-        if (gameRunning) {
+        if (gameRunning && !keyLock) {
+            keyLock = true; // Lock keys to prevent multiple key presses at once
             switch (event.key) {
                 case "ArrowLeft":
                     if (xVelocity !== 1) {
@@ -129,6 +130,7 @@ function gameOver() {
     yVelocity = 0;
     spawnFood(); // Respawn initial food
     gameRunning = false;
+    keyLock = false; // Reset key lock
 }
 
 // Attach the 'startGame' function to the 'keydown' event
